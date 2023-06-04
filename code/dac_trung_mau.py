@@ -24,8 +24,13 @@ def getPixel(image):
     hls = cv2.cvtColor(img, cv2.COLOR_BGR2HLS)
 
     # Phân đoạn các vùng ảnh có đặc tính màu sắc tương tự
+    # giá trị màu thấp nhất trong phạm vi màu đỏ mà chúng ta muốn nhận dạng
     lower_red = np.array([0, 50, 50])
+    # giá trị màu cao nhất trong phạm vi màu đỏ mà chúng ta muốn nhận dạng
     upper_red = np.array([10, 255, 255])
+    # Kết quả của hàm cv2.inRange là một ảnh nhị phân (binary image) có cùng kích thước và định dạng như ảnh đầu vào. 
+    # Trong ảnh nhị phân này, các điểm ảnh nằm trong phạm vi màu đỏ được gán giá trị 255 (trắng), 
+    # trong khi các điểm ảnh nằm ngoài phạm vi màu đỏ được gán giá trị 0 (đen).
     mask_red = cv2.inRange(hls, lower_red, upper_red)
 
     lower_green = np.array([40, 50, 50])
@@ -37,6 +42,7 @@ def getPixel(image):
     mask_blue = cv2.inRange(hls, lower_blue, upper_blue)
 
     # Tính toán các chỉ số liên quan đến màu sắc của các vùng ảnh
+    # đếm số lượng điểm ảnh khác 0(màu đỏ) trong ảnh nhị phân
     red_pixels = cv2.countNonZero(mask_red)
     green_pixels = cv2.countNonZero(mask_green)
     blue_pixels = cv2.countNonZero(mask_blue)
