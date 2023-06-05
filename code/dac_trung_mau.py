@@ -20,7 +20,7 @@ def getAllImage(folder):
 
 def getPixel(image):
     img = cv2.imread(image)
-    # Chuyển đổi sang không gian màu HLS
+    # Chuyển đổi sang không gian màu HLS để phát hiện màu sắc và làm nhận diện được từng kênh màu
     hls = cv2.cvtColor(img, cv2.COLOR_BGR2HLS)
 
     # Phân đoạn các vùng ảnh có đặc tính màu sắc tương tự

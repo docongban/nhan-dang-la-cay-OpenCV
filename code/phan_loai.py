@@ -10,7 +10,7 @@ mydb = mysql.connector.connect(
   database="la_cay"
 )
 
-image = 'E:\Hoc truc tuyen K8\CSDLDPT\BTL\phanloailacay_v2\la_cay\la_lot\z4251269125379_9dd58d81f43731ef9501dbf51eebd3b7.jpg'
+image = 'E:\Hoc truc tuyen K8\CSDLDPT\BTL\phanloailacay_v2\code/tia_to_1.png'
 
 def getDacTrungMau(image):
     img = cv2.imread(image)

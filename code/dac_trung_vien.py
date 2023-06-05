@@ -23,13 +23,21 @@ def get_dac_trung(image):
 
     # Chuyển ảnh sang đen trắng và làm mịn để loại bỏ nhiễu
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    # kích thước kernel (5, 5)(làm mờ 1 cách vừa phải, càng to thì càng mờ) và 
+    # giá trị sigma (độ lệch chuẩn) là 0 (xác định mức độ phân tán của giá trị pixel trong kernel)
+    # Giá trị sigma càng lớn, mức độ làm mờ càng cao. 
+    # Khi giá trị sigma là 0, bộ lọc Gaussian trở thành một bộ lọc trung bình (average filter) và không có sự phân tán nào
     blur = cv2.GaussianBlur(gray, (5, 5), 0)
 
     # Sử dụng phương pháp Canny để phát hiện biên
+    #  là một ảnh nhị phân, trong đó các điểm trên cạnh được đánh dấu là trắng (giá trị 255), 
+    # trong khi các điểm không phải cạnh được đánh dấu là đen (giá trị 0). 
     edges = cv2.Canny(blur, 100, 200)
 
     # Tìm các đường viền và xác định đa giác xấp xỉ
+    # chỉ lấy đường viền ngoài cùng
     contours, _ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    # một tham số epsilon (0.01 lần chiều dài cung đường viền), xác định xem đường viền có đóng hay không
     approx = cv2.approxPolyDP(contours[0], 0.01 * cv2.arcLength(contours[0], True), True)
 
     # Tính toán các đặc trưng hình học của đa giác
